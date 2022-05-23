@@ -37,7 +37,7 @@
 
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item" href="/hall-of-fame">
+          <a class="navbar-item" href="/">
             Hall of fame
           </a>
         </div>
@@ -45,15 +45,15 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a href="/hall-of-fame/admin" class="button is-primary">
+              <a href="/admin" class="button is-primary">
                 <strong>Admin</strong>
               </a>
               {{#if isLoggedIn}}
-                <a class="button is-light" href="/hall-of-fame/logout">
+                <a class="button is-light" href="logout/">
                   Logout
                 </a>
               {{else}}
-                <a class="button is-light" href="/hall-of-fame/login">
+                <a class="button is-light" href="login/">
                   Login
                 </a>
               {{/if}}

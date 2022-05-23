@@ -1,0 +1,100 @@
+<section class="section">
+  <h1 class="title">User Detail</h1>
+  <h2 class="subtitle">
+    {{user.firstName}}
+    {{user.lastName}}
+  </h2>
+
+  <div class="columns">
+    <div class="column">
+      <div class="card">
+        <div class="card-image">
+          <figure class="image">
+            <img src="{{user.image}}" alt="Placeholder image" />
+          </figure>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="content">
+        <h1>{{user.firstName}} {{user.lastName}}</h1>
+        <h4>{{user.email}}</h4>
+        <h5>{{user.division}}</h5>
+
+        {{! Social Links }}
+        <p class="buttons">
+          {{#if user.twitter}}
+            <a href="{{user.twitter}}" class="button is-primary">
+              <strong>
+                <i class="fab fa-twitter"></i>
+                Twitter
+              </strong>
+            </a>
+          {{/if}}
+          {{#if user.facebook}}
+            <a href="{{user.facebook}}" class="button is-light">
+              <strong>
+                <i class="fab fa-facebook"></i>
+                Facebook
+              </strong>
+            </a>
+          {{/if}}
+          {{#if user.instagram}}
+            <a href="{{user.instagram}}" class="button is-danger">
+              <strong>
+                <i class="fab fa-instagram"></i>
+                Instagram
+              </strong>
+            </a>
+          {{/if}}
+          {{#if user.linkedin}}
+            <a href="{{user.linkedin}}" class="button is-link">
+              <strong>
+                <i class="fab fa-linkedin"></i>
+                Linkedin
+              </strong>
+            </a>
+          {{/if}}
+          {{#if user.github}}
+            <a href="{{user.github}}" class="button is-link">
+              <strong>
+                <i class="fab fa-github"></i>
+                Github
+              </strong>
+            </a>
+          {{/if}}
+          {{#if user.website }}
+            <a href="{{user.website}}" class="button is-link">
+              <strong>
+                <i class="fas fa-globe"></i>
+                Personal Website
+              </strong>
+            </a>
+          {{/if}}
+        </p>
+        <p>{{user.about}}</p>
+
+        {{! Show Edit button and delete button }}
+        {{#if isLoggedIn}}
+          <p class="buttons">
+            <a href="/user/{{user.id}}/edit" class="button is-primary">
+              <strong>
+                <i class="fas fa-edit"></i>
+                Edit
+              </strong>
+            </a>
+            <form action="/user/{{user.id}}/delete" method="post">
+              <button type="submit" class="button is-danger">
+                <strong>
+                  <i class="fas fa-trash"></i>
+                  Delete
+                </strong>
+              </button>
+            </form>
+          </p>
+        {{/if}}
+
+      </div>
+    </div>
+  </div>
+</section>

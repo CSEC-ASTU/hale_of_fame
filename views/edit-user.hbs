@@ -1,3 +1,11 @@
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+<script>
+    Handlebars.registerHelper("ifEquals", (str1, str2, option)=>{
+      return (str1 == str2) ? option.fn(this) : option.inverse(this);
+  })
+</script>
+
 <section class="section">
   <div class="container.is-widescreen">
     <h1 class="title is-centered">
@@ -15,7 +23,11 @@
               <div class="field">
                 <label class="label">First Name</label>
                 <p class="control is-expanded has-icons-left">
+                    {{# if user.firstName }}
+                  <input required class="input" name="firstName" value="{{ user.firstName }}" type="text" placeholder="First Name" />
+                  {{ else }}
                   <input required class="input" name="firstName" type="text" placeholder="First Name" />
+                  {{/if}}
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                   </span>
@@ -24,18 +36,25 @@
               <div class="field">
                 <label class="label">Last Name</label>
                 <p class="control is-expanded has-icons-left has-icons-right">
+                    {{# if user.lastName }}
+                  <input required
+                    class="input is-success"
+                    type="text"
+                    name="lastName"
+                    value="{{ user.lastName }}"
+                    placeholder="Last Name"
+                  />
+                  {{ else }}
                   <input required
                     class="input is-success"
                     type="text"
                     name="lastName"
                     placeholder="Last Name"
                   />
+                  {{/if}}
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                   </span>
-                  {{! <span class="icon is-small is-right">
-                    <i class="fas fa-check"></i>
-                  </span> }}
                 </p>
               </div>
             </div>
@@ -44,7 +63,11 @@
           <div class="field">
             <label class="label">Email</label>
             <div class="control has-icons-left has-icons-right">
+              {{# if user.email }}
+              <input required class="input" value="{{ user.email }}" name="email" type="email" placeholder="email@gmail.com" />
+              {{ else }}
               <input required class="input" name="email" type="email" placeholder="email@gmail.com" />
+              {{/if}}
               <span class="icon is-small is-left">
                 <i class="fas fa-envelope"></i>
               </span>
@@ -56,12 +79,23 @@
               <div class="field">
                 <label class="label">Phone Number</label>
                 <div class="control">
+                  {{# if user.phoneNumber }}
+                  <input
+                    class="input"
+                    type="text"
+                    name="phoneNumber"
+                    value="{{ user.phoneNumber }}"
+                    placeholder="+251 9********"
+                  />
+                  {{ else }}
                   <input
                     class="input"
                     type="text"
                     name="phoneNumber"
                     placeholder="+251 9********"
                   />
+                  {{/if}}
+
                 </div>
               </div>
 
@@ -70,6 +104,9 @@
                 <div class="control">
                   <div class="select">
                     <select required name="gender">
+                        <option value="male">
+                            Male
+                        </option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
                     </select>
@@ -85,12 +122,22 @@
               <div class="field">
                 <label class="label">Facebook</label>
                 <p class="control is-expanded has-icons-left">
+                    {{# if user.facebook }}
+                  <input
+                    class="input"
+                    type="text"
+                    name="facebook"
+                    value="{{user.facebook}}"
+                    placeholder="Facebook Link"
+                  />
+                  {{ else }}
                   <input
                     class="input"
                     type="text"
                     name="facebook"
                     placeholder="Facebook Link"
                   />
+                  {{/if}}
                   <span class="icon is-small is-left">
                     <i class="fab fa-facebook-f"></i>
                   </span>
@@ -99,15 +146,24 @@
               <div class="field">
                 <label class="label">Instagram</label>
                 <p class="control is-expanded has-icons-left has-icons-right">
+                  {{# if user.instagram }}
                   <input
+                    class="input is-success"
+                    type="text"
+                    name="instagram"
+                    value="{{user.instagram}}"
+                    placeholder="Instagram Link"
+                  />
+                  {{ else }}
+                   <input
                     class="input is-success"
                     type="text"
                     name="instagram"
                     placeholder="Instagram Link"
                   />
+                  {{/if}}
                   <span class="icon is-small is-left">
                     <i class="fab fa-instagram"></i>
-
                   </span>
                 </p>
               </div>
@@ -119,7 +175,11 @@
               <div class="field">
                 <label class="label">Twitter</label>
                 <p class="control is-expanded has-icons-left">
-                  <input class="input" name="twitter" type="text" placeholder="Twitter Link" />
+                 {{# if user.twitter }}
+                  <input class="input" value="{{user.twitter}}" name="twitter" type="text" placeholder="Twitter Link" />
+                  {{else}}
+                   <input class="input" name="twitter" type="text" placeholder="Twitter Link" />
+                   {{/if}}
                   <span class="icon is-small is-left">
                     <i class="fab fa-twitter"></i>
                   </span>
@@ -128,12 +188,22 @@
               <div class="field">
                 <label class="label">Linkedin</label>
                 <p class="control is-expanded has-icons-left has-icons-right">
+                 {{# if user.linkedin }}
                   <input
+                    class="input is-success"
+                    type="text"
+                    name="linkedin"
+                    value="{{user.linkedin}}"
+                    placeholder="Linkedin Link"
+                  />
+                  {{else}}
+                   <input
                     class="input is-success"
                     type="text"
                     name="linkedin"
                     placeholder="Linkedin Link"
                   />
+                  {{/if}}
                   <span class="icon is-small is-left">
                     <i class="fab fa-linkedin"></i>
                   </span>
@@ -147,7 +217,11 @@
               <div class="field">
                 <label class="label">Github</label>
                 <p class="control is-expanded has-icons-left">
+                  {{# if user.github }}
+                  <input class="input" value="{{user.github}}" name="github" type="text" placeholder="Github Link" />
+                  {{else}}
                   <input class="input" name="github" type="text" placeholder="Github Link" />
+                  {{/if}}
                   <span class="icon is-small is-left">
                     <i class="fab fa-github"></i>
                   </span>
@@ -156,12 +230,22 @@
               <div class="field">
                 <label class="label">Personal</label>
                 <p class="control is-expanded has-icons-left">
+                  {{# if user.personal }}
+                  <input
+                    class="input"
+                    type="text"
+                    name="personal"
+                    value="{{user.personal}}"
+                    placeholder="Personal Site"
+                  />
+                  {{else}}
                   <input
                     class="input"
                     type="text"
                     name="personal"
                     placeholder="Personal Site"
                   />
+                  {{/if}}
                   <span class="icon is-small is-left">
                     <i class="fas fa-globe"></i>
                   </span>
@@ -173,7 +257,11 @@
           <div class="field">
             <label class="label">About</label>
             <div class="control">
+                {{# if user.about }}
+              <textarea required class="textarea" name="about" placeholder="Textarea">{{user.about}}</textarea>
+              {{else}}
               <textarea required class="textarea" name="about" placeholder="Textarea"></textarea>
+              {{/if}}
             </div>
           </div>
 
@@ -208,6 +296,11 @@
             </div>
           </div>
           <br />
+          {{# if user.image }}
+          <p>User have profile pic!</p>
+          {{else}}
+          <p>User don't have profile pic!</p>
+          {{/if}}
           <div id="member-image" class="file has-name">
             <label class="file-label">
               <input class="file-input" type="file" name="image"/>
@@ -241,6 +334,7 @@
 
   </div>
 </section>
+
 
 <script>
   const fileInput = document.querySelector('#member-image input[type=file]');

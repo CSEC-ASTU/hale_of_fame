@@ -1,7 +1,10 @@
 var express = require("express");
 var router = express.Router();
-var { check_authentication } = require("../routes/utils");
-const { get_paginated_users } = require("../routes/user_crud");
+const multer = require("multer");
+const upload = multer({ dest: "public/images/" });
+
+var { check_authentication, is_authenticated } = require("../routes/utils");
+const { get_paginated_users, get_user, delete_user, update_user } = require("../routes/user_crud");
 
 /* GET home page. */
 router.get("/", async (req, res, next) => {
@@ -14,7 +17,7 @@ router.get("/", async (req, res, next) => {
     }
   }
 
-  try {    
+  try {
     var { count, users } = await get_paginated_users(req, res);
     // pagination paramters
     var page = req.query.page || 1;
@@ -64,8 +67,52 @@ router.get("/", async (req, res, next) => {
     users: users,
     count: count,
     isLoggedIn: isLoggedIn,
-    pagination: pagination
+    pagination: pagination,
   });
 });
+
+// user details
+router.get("/user/:id", async (req, res, next) => {
+  const token = req.cookies.token;
+  var isLoggedIn = false;
+  if (token) {
+    console.log("token Before: ", token);
+    if (await check_authentication(token)) {
+      isLoggedIn = true;
+    }
+  }
+
+  const user = await get_user(req, res);
+
+  return res.render("user-details", {
+    title: "User Details",
+    user: user,
+    isLoggedIn: isLoggedIn,
+  });
+});
+
+// Detele user
+router.post("/user/:id/delete", is_authenticated, async (req, res, next) => {
+  await delete_user(req, res);
+  return res.redirect("/");
+});
+
+// Edit User
+router.get("/user/:id/edit", is_authenticated, async(req, res, next) => {
+  const user = await get_user(req, res)
+  return res.render(
+    "edit-user",
+    {
+      title: "Edit User",
+      user: user,
+      isLoggedIn: true,
+    }
+  )
+})
+
+router.post("/user/:id/edit", [is_authenticated, upload.single("image")], async(req, res, next) => {
+  await update_user(req, res);
+  return res.redirect("/");
+})
 
 module.exports = router;

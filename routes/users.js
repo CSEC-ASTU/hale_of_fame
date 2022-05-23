@@ -1,5 +1,8 @@
 var express = require("express");
 var router = express.Router();
+const multer = require("multer");
+const upload = multer({ dest: "public/images/" });
+
 var {
   authenticate,
   is_authenticated,
@@ -8,8 +11,7 @@ var {
 const { delete_tokens } = require("../routes/token_crud");
 const { create_user } = require("../routes/user_crud");
 
-const multer = require("multer");
-const upload = multer({ dest: "public/images/" });
+
 
 /* users registration. */
 router.get("/admin", is_authenticated, async (req, res, next) => {
@@ -36,7 +38,7 @@ router.post(
     if (token) {
       const is_logged = await check_authentication(token);
       if (!is_logged) {
-        return res.redirect("/hall-of-fame/login/");
+        return res.redirect("login/");
       }
     }
     // get the user data from the form
@@ -46,7 +48,7 @@ router.post(
     try {
       const user = await create_user(req, res);
       console.log("user created: ", user);
-      return res.redirect("/hall-of-fame/");
+      return res.redirect("");
     } catch (error) {
       console.log("POST admin, error: ", error);
     }
@@ -59,6 +61,9 @@ router.post(
   }
 );
 
+
+
+
 // Authentications
 
 router.get("/login", async (req, res, next) => {
@@ -66,7 +71,7 @@ router.get("/login", async (req, res, next) => {
   if (token) {
     console.log("token Before: ", token);
     if (await check_authentication(token)) {
-      return res.redirect("/hall-of-fame/admin/");
+      return res.redirect("admin/");
     }
   }
   res.render("login", { title: "Express" });
@@ -80,7 +85,7 @@ router.post("/login", async (req, res, next) => {
   if (token) {
     console.log("token Before: ", token);
     if (await check_authentication(token)) {
-      return res.redirect("/hall-of-fame/admin/");
+      return res.redirect("admin");
     }
   }
 
@@ -93,7 +98,7 @@ router.post("/login", async (req, res, next) => {
     res.cookie("token", result.token, {
       maxAge: result.expiresAt.getTime() - Date.now(),
     });
-    return res.redirect("/hall-of-fame/admin/");
+    return res.redirect("admin/");
   } else {
     return res.render("login", {
       title: "Login",
@@ -111,7 +116,7 @@ router.all("/logout", async (req, res, next) => {
   }
   // remove token from cookie
   res.clearCookie("token");
-  res.redirect("/hall-of-fame/login");
+  res.redirect("login");
 });
 
 module.exports = router;

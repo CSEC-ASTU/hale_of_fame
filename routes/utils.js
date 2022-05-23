@@ -78,13 +78,13 @@ const is_authenticated = async (req, res, next) => {
     if (auth) {
       return next();
     } else {
-      return res.redirect("/hall-of-fame/login");
+      return res.redirect("login/");
     }
   } else {
     console.log("Else Not Authenticated");
   }
 
-  return res.redirect("/hall-of-fame/login");
+  return res.redirect("login/");
 };
 
 // Export all the functions
