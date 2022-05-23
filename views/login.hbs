@@ -1,0 +1,68 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">
+      Admin Login Page
+    </h1>
+    <p class="subtitle">
+      Only
+      <strong>Admins</strong>
+      are allowed to login!
+    </p>
+    {{#if error}}
+      <div class="notification is-danger">
+        <button class="delete"></button>
+        {{error}}
+      </div>
+    {{/if}}
+
+    <div class="columns is-mobile">
+      <div class="column is-full-mobile is-half-tablet is-half-desktop">
+
+        <form class="box" method="POST">
+          <div class="columns is-multiline is-mobile">
+
+            <div class="field column is-full-mobile is-full-tablet is-full-desktop">
+              <label class="label">Username</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Username"
+                  name="username"
+                  required
+                />
+              </div>
+            </div>
+            <br />
+            <div class="field column is-full-mobile is-full-tablet is-full-desktop">
+              <label class="label">Password</label>
+              <div class="control">
+                <input
+                  class="input"
+                  name="password"
+                  type="password"
+                  placeholder="********"
+                  required
+                />
+              </div>
+            </div>
+
+          </div>
+
+          <button class="button is-primary">Sign in</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener('DOMContentLoaded', () => { (
+      document.querySelectorAll('.notification .delete') || [])
+      .forEach(($delete) => { 
+        const $notification = $delete.parentNode;
+        $delete.addEventListener('click', () => {
+        $notification.parentNode.removeChild($notification); 
+      });
+    });
+  });
+</script>

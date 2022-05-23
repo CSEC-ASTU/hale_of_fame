@@ -1,0 +1,79 @@
+<section class="section">
+  <div class="container.is-widescreen">
+    <h1 class="title">
+      Hall of Fame Page
+    </h1>
+    <p class="subtitle">
+      All member of CSEC-ASTU are here.
+    </p>
+    <form method="get">
+      <div class="field is-grouped">
+        <p class="control is-expanded">
+          <input class="input" name="search" type="text" placeholder="Search by Name" required />
+        </p>
+        <p class="control">
+          <button type="submit" class="button is-info">
+            Search
+          </button>
+        </p>
+      </div>
+    </form>
+    {{#if users}}
+    <div class="columns is-multiline is-mobile">
+      {{#each users}}
+        <div
+          class="column is-one-quarter-desktop is-half-tablet is-full-mobile"
+        >
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img
+                  src="{{this.image}}"
+                  alt="Placeholder image"
+                />
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-48x48">
+                    <img
+                      src="{{this.image}}"
+                      alt="Placeholder image"
+                      class="is-rounded"
+                    />
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <p class="title is-4">{{ this.firstName }} {{ this.lastName }}</p>
+                  <p class="subtitle is-6">{{ this.email }}</p>
+                </div>
+              </div>
+
+              <div class="content">
+                <a href="#">#responsive</a>
+                <br />
+                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+              </div>
+              <footer class="card-footer">
+                <a href="/{{ this.id }}" class="card-footer-item">Details</a>
+              </footer>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+    <nav class="pagination" role="navigation" aria-label="pagination">
+      {{#if prev}}
+      <a class="pagination-previous" href="{{prev}}">Previous</a>
+      {{/if}}
+      {{#if next}}
+      <a class="pagination-next" href="{{next}}">Next page</a>
+      {{/if}}
+    </nav>
+    {{/if}}
+    {{#if noUsers}}
+    <p>No users found</p>
+    {{/if}}
+  </div>
+</section>
